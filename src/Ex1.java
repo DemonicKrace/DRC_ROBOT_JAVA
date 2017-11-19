@@ -11,6 +11,7 @@ import java.lang.*;
 public class Ex1 extends JFrame implements ActionListener{
    private JButton[] btn=new JButton[101];
 
+   boolean open = false;
    public Ex1() {
 
       Container c = getContentPane();
@@ -102,7 +103,8 @@ public class Ex1 extends JFrame implements ActionListener{
            		DatagramSocket ds=new DatagramSocket();
            		String strInfo = Integer.toString(i);
            		
-           		if(i == 5){ //open grid map
+           		if(i == 5 && !open){ //open grid map
+           			open = true;
            			Thread thread_grid = new Thread(){
            				public void run(){
            					try {
@@ -132,9 +134,10 @@ public class Ex1 extends JFrame implements ActionListener{
            			break;
            		}
            		
-           		ds.send(new DatagramPacket(strInfo.getBytes(),strInfo.length(),
+           		for(int j = 0; j < 5 ; j++){
+           			ds.send(new DatagramPacket(strInfo.getBytes(),strInfo.length(),
                                     InetAddress.getByName("192.168.123.1"),8080));               //192.168.0.109
-           		
+           		}
            		System.out.println("send status " + strInfo);
            		
            		ds.close();

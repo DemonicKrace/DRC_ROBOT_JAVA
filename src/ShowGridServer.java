@@ -64,7 +64,6 @@ public class ShowGridServer extends Frame implements ActionListener{
 		//check msg format is correct
 		if(msg.length() == map_height * map_width) {
 			for (int i = 0, n = msg.length(); i < n; i++) {
-				System.out.println(i);
 				map[i / map_width][i % map_width] = msg.charAt(i);
 			}
 			Graphics g = getGraphics();
@@ -76,8 +75,6 @@ public class ShowGridServer extends Frame implements ActionListener{
 	public void drawMap(Graphics g, int height, int width){		
 		for(int i = 0; i < height; i++){
 			for(int j = 0; j < width; j++){
-				g.setColor(Color.BLACK);					
-				g.drawRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
 				
 				//white = empty '.'
 				//black = robot 'R'
@@ -108,32 +105,21 @@ public class ShowGridServer extends Frame implements ActionListener{
 				case 'L':case 'l':
 					drawOneGrid(g, Color.YELLOW, i, j);
 					break;
-					
+				default:
+					drawOneGrid(g, Color.WHITE, i, j);
+					break;
 				}
 				
-				/*
-				if(map[i][j] == 1){
-					g.setColor(Color.BLACK);
-					g.fillRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
-				}else {
-					g.setColor(Color.WHITE);
-					g.fillRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
-					g.setColor(Color.BLACK);					
-					g.drawRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
-				}
-				*/
 			}			
 		}
 	}
 	
 	public void drawOneGrid(Graphics g, Color color, int i, int j)
 	{
-		g.setColor(Color.WHITE);
+		g.setColor(color);
 		g.fillRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
 		g.setColor(Color.BLACK);					
 		g.drawRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
-		g.setColor(color);					
-		g.fillRect(height_d + j * border_len, width_d + i * border_len, border_len, border_len);
 	}
 	
 	public void actionPerformed(ActionEvent e)
